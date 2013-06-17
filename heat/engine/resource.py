@@ -21,7 +21,6 @@ from heat.common import exception
 from heat.openstack.common import excutils
 from heat.db import api as db_api
 from heat.common import identifier
-from heat.common import short_id
 from heat.engine import timestamp
 from heat.engine.properties import Properties
 
@@ -398,11 +397,7 @@ class Resource(object):
             self.state_set(self.UPDATE_COMPLETE)
 
     def physical_resource_name(self):
-        assert self.id is not None
-
-        return '%s-%s-%s' % (self.stack.name,
-                             self.name,
-                             short_id.get_id(self.id))
+        return '%s-%s' % (self.stack.name, self.name)
 
     def validate(self):
         logger.info('Validating %s' % str(self))

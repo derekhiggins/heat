@@ -75,23 +75,10 @@ class PhysName(object):
         self.resource_name = resource_name
 
     def __eq__(self, physical_name):
-        try:
-            stack, res, short_id = str(physical_name).rsplit('-', 2)
-        except ValueError:
-            return False
-
-        if self.stack_name != stack or self.resource_name != res:
-            return False
-
-        if len(short_id) != 12:
-            return False
-
-        return True
+        return physical_name == repr(self)
 
     def __ne__(self, physical_name):
         return not self.__eq__(physical_name)
 
     def __repr__(self):
-        return '%s-%s-%s' % (self.stack_name,
-                             self.resource_name,
-                             'x' * 12)
+        return '%s-%s' % (self.stack_name, self.resource_name)
